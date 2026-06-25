@@ -1,13 +1,12 @@
 import flet as ft
 
-
-class Login(ft.Container):
+class SignUp(ft.Container):
     def __init__(self, page: ft.Page):
         super().__init__()
 
         self.content = ft.Column(
             controls=[
-                ft.Text("Hello login", color="white"),
-                ft.Button("signup", on_click=lambda e: page.go("/signup"))
+                ft.Text("Hello signup", color="white"),
+                ft.Button("login", on_click=lambda e: page.go("/login"))
             ]
         )
