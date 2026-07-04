@@ -6,18 +6,16 @@ def connect_to_database(db_path):
     return conn
 
 
-def get_data(conn, table_name, conditions =None):
+def get_data(conn, table_name, conditions=None):
     cursor = conn.cursor()
     if conditions:
-        cursor.execute(f"SELECT * FROM
-                      {table_name} WHERE
-                      {conditions}")
+        cursor.execute(f"SELECT * FROM {table_name} WHERE {conditions}")
     else:
         cursor.execute(f"SELECT * FROM {table_name}")
 
     rows = cursor.fetchall()
     columns = [col[0] for col in cursor.description]
-    result = [{columns[i]:row[i]:} for in range(len(columns)) for row in rows]
+    result = [{columns[i]: row[i] for i in range(len(columns))} for row in rows]
     return result
 
 
@@ -25,3 +23,13 @@ def check_data_exists(conn, table_name, condition):
     cursor = conn.cursor()
     cursor.execute(f"SELECT EXISTS (SELECT 1 FROM {table_name} WHERE {condition})")
     return cursor.fetchone()[0] == 1 
+
+
+# Fuction to insert data into the table 
+def insert_data(conn, table_name, values):
+    cursor = conn.cursor()
+    cursor.execute(
+        f"INSERT INTO {table_name} (first_name, last_name, email, password) VALUES (?, ?, ?, ?)",
+        values
+    )
+    conn.commit()

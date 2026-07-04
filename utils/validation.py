@@ -6,7 +6,7 @@ class Validation:
         pass
 
     def is_valid_email(self, email):
-        pattern = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+        pattern = r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
         return re.match(pattern, email) is not None
 
     def is_valid_password(self, password):
@@ -16,7 +16,7 @@ class Validation:
         if not any(c.isdigit() for c in password):
             return False
 
-        if not re.search("[@_!#$%^&*()<>?/\|}{~:]", password):
+        if not re.search(r"[@_!#$%^&*()<>?/\|}{~:]", password):
             return False
 
         return True

@@ -30,4 +30,4 @@ class CustomTextField(ft.TextField):
             **kwargs
         )
 
-        self.error_text = error_text,
+        self.error_text = error_text
