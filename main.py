@@ -6,7 +6,7 @@ from router import views_handler
 
 def main(page: ft.Page):
     page.bgcolor = "white" 
-    page.padding = ft.padding.all(0)
+    page.padding =ft.padding.all(0)
 
     def route_change(route):
         page.clean()
@@ -19,7 +19,9 @@ def main(page: ft.Page):
         page.add(SignUp(page))
 
 
-        page.fonts = {"abeezee": "fonts/ABeeZee-Regular"}
+    page.fonts = {
+        "abeezee": "fonts/ABeeZee-Regular"
+    }
 
     page.on_route_change = route_change
 

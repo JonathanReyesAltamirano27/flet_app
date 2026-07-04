@@ -1,6 +1,4 @@
 import flet as ft
-
-
 from utils.colors import customTextHeaderColor, customBorderColor, customPrimaryColor
 from components.fields import CustomTextField
 
@@ -12,7 +10,7 @@ class Login(ft.Container):
         self.expand = True
 
         self.email = ft.Container(
-            padding=ft.Padding.all(4),
+            padding=ft.padding.all(4),
             content=CustomTextField(label="Email"),
             border=ft.Border.all(width=1, color=customBorderColor),
         )
