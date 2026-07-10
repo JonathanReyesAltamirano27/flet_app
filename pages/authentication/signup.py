@@ -9,7 +9,7 @@ from utils.validation import Validation
 
 class SignUp(ft.Container):
     def __init__(self, page: ft.Page):
-        self.page = page
+        self._page = page
         self.validation = Validation()
         self.error_field = ft.Text("", color="red", size=0)
 
@@ -167,4 +167,4 @@ class SignUp(ft.Container):
             conn.close()
 
         self.show_message("You have successfully registered", color="green")
-        self.page.go("/login")
+        self._page.go("/login")

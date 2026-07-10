@@ -21,7 +21,7 @@ class CustomTextField(ft.TextField):
             password=password,
             can_reveal_password=can_reveal_password,
             content_padding=ft.Padding.only(
-                top=0, bottom=0, left=0, right=0),  # Tu sintaxis con mayúscula
+                top=0, bottom=0, left=0, right=0),  
             hint_style=ft.TextStyle(size=14, color=customTextColor),
             label_style=ft.TextStyle(color=customTextColor),
             input_filter=input_filter,

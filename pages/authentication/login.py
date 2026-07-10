@@ -1,7 +1,10 @@
+import time
+
 import flet as ft
+from db.crud import check_data_exists, connect_to_database, get_data
 from utils.colors import customTextHeaderColor, customBorderColor, customPrimaryColor
 from components.fields import CustomTextField
-
+from db.db import db_path
 
 class Login(ft.Container):
     def __init__(self, page: ft.Page):
@@ -44,6 +47,7 @@ class Login(ft.Container):
                                     height=40,
                                     bgcolor=customPrimaryColor,
                                     content=ft.Text("Login"),
+                                    on_click=self.login
                                 ),
                                 ft.Container(
                                     alignment=ft.Alignment.CENTER,
@@ -59,7 +63,7 @@ class Login(ft.Container):
                     ft.Container(
                         expand=2,
                         image=ft.DecorationImage(
-                            src="images/bg.png",
+                            src="images/image.png",
                             fit=ft.BoxFit.COVER,
                         ),
                         padding=ft.Padding.all(40),
@@ -85,5 +89,38 @@ class Login(ft.Container):
             ),
         )
 
-    def signup(self, e):
-        print("this is our sign up")
+    def login(self, e):
+        email = self.email.content.value
+        password = self.password.content.value
+
+        if email and password:
+            conn = connect_to_database(db_path)
+
+            if check_data_exists(conn, "user", f"email='{email}'"):
+                get_user = get_data(conn, "user", f"email='{email}'")
+                is_email_match = get_user[0]["email"] == email
+                is_password_match = get_user[0]["password"] == password
+
+                if is_email_match and is_password_match:
+                    self.page.splash = ft.ProgressBar()
+                    self.page.update()
+                    time.sleep(1)
+                    self.page.splash = None
+                    self.page.navigate("/")
+            else:
+                self.password.border = self.error_border
+                self.email.border = self.error_border
+                self.error_field.value = "Email or Password is incorrect"
+                self.error_field.size = 12
+                self.password.update()
+                self.email.update()
+                self.error_field.update()
+
+                time.sleep(1)
+                self.password.border = self.default_border
+                self.email.border = self.default_border
+                self.error_field.value = ""
+                self.error_field.size = 0
+                self.password.update()
+                self.email.update()
+                self.error_field.update()

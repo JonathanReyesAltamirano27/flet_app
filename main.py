@@ -1,11 +1,12 @@
 import flet as ft
 from pages.authentication.login import Login
 from pages.authentication.signup import SignUp
-
+from db.db import create_database
 
 def main(page: ft.Page):
     page.bgcolor = "white"
     page.padding = ft.Padding.all(0)
+    create_database()
 
     def route_change(e=None):
         page.clean()
